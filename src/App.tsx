@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router'
 import { Layout } from './components/Layout'
-import { ProjectsProvider } from './data/ProjectsContext'
+import { PortfolioProvider } from './data/PortfolioContext'
 import { LanguageProvider } from './i18n/LanguageContext'
 import { HomePage } from './pages/HomePage'
 import { NotFoundPage } from './pages/NotFoundPage'
@@ -9,7 +9,7 @@ import { ProjectPage } from './pages/ProjectPage'
 export default function App() {
   return (
     <LanguageProvider>
-      <ProjectsProvider>
+      <PortfolioProvider>
         <BrowserRouter basename={import.meta.env.BASE_URL}>
           <Routes>
             <Route element={<Layout />}>
@@ -19,7 +19,7 @@ export default function App() {
             </Route>
           </Routes>
         </BrowserRouter>
-      </ProjectsProvider>
+      </PortfolioProvider>
     </LanguageProvider>
   )
 }

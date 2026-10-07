@@ -39,17 +39,17 @@
   gap: 4rem;
 }
 
-.carousel-track i {
+.tech-icon {
+  flex-shrink: 0;
+  width: 4.5rem;
+  height: 4.5rem;
+  object-fit: contain;
   transition: transform 0.2s ease-in-out;
   cursor: pointer;
 }
 
-.carousel-track i:hover {
+.tech-icon:hover {
   transform: scale(1.25) translateY(-8px);
-}
-
-.jenkins-icon {
-  color: #d33833;
 }
 
 @keyframes scroll-horizontal {
@@ -121,6 +121,66 @@
 .other-project-img {
   aspect-ratio: 16/9;
   object-fit: cover;
+}
+
+/* Filtro e tipo dos projetos */
+.project-kind-badge {
+  background-color: var(--glass-bg-hover);
+  color: var(--bs-emphasis-color);
+  border: 1px solid var(--glass-border-strong);
+}
+
+.d-contents {
+  display: contents !important;
+}
+
+.pagination-page {
+  min-width: 2.25rem;
+}
+
+/* Experiência profissional: linha do tempo */
+.timeline {
+  position: relative;
+  padding-left: 1.75rem;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  top: 0.5rem;
+  bottom: 0.5rem;
+  left: 0.45rem;
+  width: 2px;
+  background: var(--glass-border-strong);
+}
+
+.timeline-item {
+  position: relative;
+}
+
+.timeline-item + .timeline-item {
+  margin-top: 1.5rem;
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  top: 1.75rem;
+  left: calc(-1.75rem + 0.45rem - 5px);
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--bs-body-bg);
+  border: 2px solid var(--bs-emphasis-color);
+  z-index: 1;
+}
+
+.timeline-logo {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  background: #fff;
+  padding: 4px;
 }
 
 /* Galeria da página do projeto */

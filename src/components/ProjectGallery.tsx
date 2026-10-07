@@ -38,8 +38,9 @@ export function ProjectGallery({ images, title }: ProjectGalleryProps) {
   }
 
   return (
-    <section className="mt-5">
-      <h2 className="h4 fw-bold mb-3">{t.gallery}</h2>
+    <section className="mb-5">
+      {/* Título só para leitores de tela: visualmente a grade já continua a capa */}
+      <h2 className="visually-hidden">{t.gallery}</h2>
       <div className="project-gallery-grid">
         {images.map((src, i) => (
           <button

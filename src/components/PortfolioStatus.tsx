@@ -1,9 +1,9 @@
-import { useProjects } from '../data/ProjectsContext'
+import { usePortfolioStatus } from '../data/PortfolioContext'
 import { useLanguage } from '../i18n/LanguageContext'
 
-// Estados de carregamento/erro da lista de projetos vinda da API.
-export function ProjectsStatus() {
-  const { status, retry } = useProjects()
+// Estados de carregamento/erro dos dados do portfólio vindos da API.
+export function PortfolioStatus() {
+  const { status, retry } = usePortfolioStatus()
   const { t } = useLanguage()
 
   if (status === 'loading') {

@@ -1,6 +1,6 @@
 import { Link } from 'react-router'
 import { asset } from '../config'
-import type { Project } from '../data/projects'
+import type { Project } from '../data/portfolio'
 import { useLanguage } from '../i18n/LanguageContext'
 import { TechBadges } from './TechBadges'
 
@@ -23,7 +23,13 @@ export function ProjectCard({ project }: { project: Project }) {
                 {title}
               </Link>
             </h5>
-            <TechBadges techs={project.techs} className="justify-content-center justify-content-sm-start my-3" />
+            <div className="d-flex flex-wrap gap-2 justify-content-center justify-content-sm-start my-3">
+              <span className="badge rounded-pill tech-badge project-kind-badge">
+                <i className={`bi ${project.kind === 'professional' ? 'bi-briefcase' : 'bi-person'} me-1`}></i>
+                {project.kind === 'professional' ? t.professionalProject : t.personalProject}
+              </span>
+              <TechBadges techs={project.techs} className="d-contents" />
+            </div>
             <p className="text-muted mb-3">{project.summary[lang]}</p>
             <span className="btn btn-sm btn-outline-secondary d-inline-flex align-items-center gap-2">
               {t.viewDetails} <i className="bi bi-arrow-right"></i>

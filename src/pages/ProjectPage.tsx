@@ -3,27 +3,27 @@ import { LanguageSwitch } from '../components/LanguageSwitch'
 import { ThemeToggle } from '../components/ThemeToggle'
 import { TechBadges } from '../components/TechBadges'
 import { asset } from '../config'
-import { ProjectsStatus } from '../components/ProjectsStatus'
 import { ProjectGallery } from '../components/ProjectGallery'
-import { useProjects } from '../data/ProjectsContext'
+import { usePortfolio } from '../data/PortfolioContext'
 import { useLanguage } from '../i18n/LanguageContext'
 import { NotFoundPage } from './NotFoundPage'
 
 export function ProjectPage() {
   const { slug } = useParams()
   const { lang, t } = useLanguage()
-  const { projects, status } = useProjects()
+  const { profile, projects } = usePortfolio()
   const project = projects.find((p) => p.slug === slug)
 
-  if (status !== 'ready') return <ProjectsStatus />
   if (!project) return <NotFoundPage />
 
   const title = project.title[lang]
+  const gallery = project.gallery ?? []
+  const collaborators = project.collaborators ?? []
   const others = projects.filter((p) => p.slug !== project.slug)
 
   return (
     <>
-      <title>{`${title} - ${t.fullName}`}</title>
+      <title>{`${title} - ${profile.name}`}</title>
 
       <nav className="d-flex justify-content-between align-items-center mb-4">
         <Link to="/#projects" className="btn btn-sm btn-outline-contrast d-inline-flex align-items-center gap-2">
@@ -41,7 +41,14 @@ export function ProjectPage() {
           <p className="lead text-body-secondary mb-0">{project.summary[lang]}</p>
         </header>
 
-        <img src={asset(project.image)} alt={title} className="project-hero rounded-4 border border-2 border-secondary shadow-lg mb-5" />
+        <img
+          src={asset(project.image)}
+          alt={title}
+          className={`project-hero rounded-4 border border-2 border-secondary shadow-lg ${gallery.length > 0 ? 'mb-3' : 'mb-5'}`}
+        />
+
+        {/* Galeria logo abaixo da capa, antes do texto */}
+        <ProjectGallery images={gallery} title={title} />
 
         <div className="row g-5">
           <div className="col-lg-8">
@@ -61,8 +68,6 @@ export function ProjectPage() {
                 </li>
               ))}
             </ul>
-
-            <ProjectGallery images={project.gallery ?? []} title={title} />
           </div>
 
           <aside className="col-lg-4">
@@ -72,6 +77,28 @@ export function ProjectPage() {
                   <h2 className="h6 text-uppercase text-secondary fw-bold mb-3">{t.technologies}</h2>
                   <TechBadges techs={project.techs} />
                 </div>
+                {collaborators.length > 0 && (
+                  <div>
+                    <h2 className="h6 text-uppercase text-secondary fw-bold mb-3">{t.collaborators}</h2>
+                    <ul className="list-unstyled d-flex flex-column gap-2 mb-0">
+                      {collaborators.map((person) => (
+                        <li key={person.name} className="d-flex align-items-center gap-2">
+                          <i className="bi bi-person-circle text-body-secondary fs-5"></i>
+                          <div>
+                            {person.url ? (
+                              <a href={person.url} target="_blank" rel="noreferrer" className="fw-semibold link-body-emphasis">
+                                {person.name}
+                              </a>
+                            ) : (
+                              <span className="fw-semibold text-body-emphasis">{person.name}</span>
+                            )}
+                            {person.role?.[lang] && <div className="small text-body-secondary">{person.role[lang]}</div>}
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
                 {(project.live_url || project.github_url) && (
                   <div className="d-flex flex-column gap-2">
                     {project.live_url && (
@@ -81,7 +108,7 @@ export function ProjectPage() {
                     )}
                     {project.github_url && (
                       <a href={project.github_url} target="_blank" rel="noreferrer" className="btn btn-outline-secondary d-inline-flex justify-content-center align-items-center gap-2">
-                        <i className="devicon-github-original"></i> {t.viewOnGithub}
+                        <i className="bi bi-github"></i> {t.viewOnGithub}
                       </a>
                     )}
                   </div>
