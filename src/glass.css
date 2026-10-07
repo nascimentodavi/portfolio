@@ -1,0 +1,289 @@
+/* ==========================================================================
+   Efeito glass (vidro fosco) — compartilhado entre o portfólio e o blog.
+   Mantenha os dois arquivos iguais:
+     nascimentodavi.github.io/src/glass.css
+     dbb/dbb_front/src/glass.css
+   ========================================================================== */
+
+:root,
+[data-bs-theme="dark"] {
+  --glass-bg: rgba(255, 255, 255, 0.06);
+  --glass-bg-hover: rgba(255, 255, 255, 0.11);
+  --glass-bg-active: rgba(255, 255, 255, 0.2);
+  /* Para camadas sobre conteúdo (dropdowns, menu mobile): mais opaco p/ leitura */
+  --glass-bg-solid: rgba(33, 37, 41, 0.78);
+  --glass-border: rgba(255, 255, 255, 0.14);
+  --glass-border-strong: rgba(255, 255, 255, 0.32);
+  --glass-highlight: rgba(255, 255, 255, 0.18);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+  --glass-blur: 18px;
+  /* Manchas de cor do fundo — é o que o vidro desfoca */
+  --ambient-1: rgba(74, 222, 128, 0.16);
+  --ambient-2: rgba(56, 189, 248, 0.13);
+  --ambient-3: rgba(167, 139, 250, 0.12);
+}
+
+[data-bs-theme="light"] {
+  --glass-bg: rgba(255, 255, 255, 0.45);
+  --glass-bg-hover: rgba(255, 255, 255, 0.68);
+  --glass-bg-active: rgba(255, 255, 255, 0.92);
+  --glass-bg-solid: rgba(255, 255, 255, 0.85);
+  /* Sobre fundo claro, borda branca some: usa um contorno escuro sutil */
+  --glass-border: rgba(15, 23, 42, 0.1);
+  --glass-border-strong: rgba(15, 23, 42, 0.2);
+  --glass-highlight: rgba(255, 255, 255, 0.95);
+  --glass-shadow: 0 8px 32px rgba(15, 23, 42, 0.1);
+  --ambient-1: rgba(74, 222, 128, 0.28);
+  --ambient-2: rgba(56, 189, 248, 0.25);
+  --ambient-3: rgba(167, 139, 250, 0.22);
+}
+
+body {
+  min-height: 100vh;
+  background-color: var(--bs-body-bg);
+  background-image:
+    radial-gradient(ellipse 60% 50% at 10% 0%, var(--ambient-1), transparent 70%),
+    radial-gradient(ellipse 50% 45% at 95% 20%, var(--ambient-2), transparent 70%),
+    radial-gradient(ellipse 60% 50% at 50% 100%, var(--ambient-3), transparent 70%);
+  background-attachment: fixed;
+}
+
+/* --- Superfícies ---------------------------------------------------------- */
+
+.glass,
+.card,
+.card-surface {
+  --bs-card-bg: var(--glass-bg);
+  background-color: var(--glass-bg);
+  border: 1px solid var(--glass-border) !important;
+  box-shadow: var(--glass-shadow), inset 0 1px 0 var(--glass-highlight) !important;
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(150%);
+  backdrop-filter: blur(var(--glass-blur)) saturate(150%);
+}
+
+.dropdown-menu {
+  --bs-dropdown-bg: var(--glass-bg-solid);
+  --bs-dropdown-border-color: var(--glass-border);
+  --bs-dropdown-link-hover-bg: var(--glass-bg-hover);
+  --bs-dropdown-link-active-bg: var(--glass-bg-active);
+  --bs-dropdown-link-active-color: var(--bs-emphasis-color);
+  box-shadow: var(--glass-shadow), inset 0 1px 0 var(--glass-highlight);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(150%);
+  backdrop-filter: blur(var(--glass-blur)) saturate(150%);
+}
+
+/* --- Campos de formulário ------------------------------------------------- */
+
+.form-control,
+.form-select,
+.input-group-text {
+  background-color: var(--glass-bg);
+  border-color: var(--glass-border);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+.form-control:focus,
+.form-select:focus {
+  background-color: var(--glass-bg-hover);
+  border-color: var(--glass-border-strong);
+  box-shadow: 0 0 0 0.2rem var(--glass-highlight);
+}
+
+/* As opções nativas do <select> não herdam transparência */
+.form-select option {
+  background-color: var(--bs-body-bg);
+}
+
+/* --- Botões --------------------------------------------------------------- */
+
+.btn-contrast,
+.btn-outline-contrast,
+.btn-outline-secondary {
+  --bs-btn-color: var(--bs-emphasis-color);
+  --bs-btn-bg: var(--glass-bg);
+  --bs-btn-border-color: var(--glass-border);
+  --bs-btn-hover-color: var(--bs-emphasis-color);
+  --bs-btn-hover-bg: var(--glass-bg-hover);
+  --bs-btn-hover-border-color: var(--glass-border-strong);
+  --bs-btn-active-color: var(--bs-emphasis-color);
+  --bs-btn-active-bg: var(--glass-bg-active);
+  --bs-btn-active-border-color: var(--glass-border-strong);
+  --bs-btn-focus-shadow-rgb: var(--bs-emphasis-color-rgb);
+  --bs-btn-disabled-color: var(--bs-secondary-color);
+  --bs-btn-disabled-bg: var(--glass-bg);
+  --bs-btn-disabled-border-color: var(--glass-border);
+  box-shadow: inset 0 1px 0 var(--glass-highlight);
+  -webkit-backdrop-filter: blur(10px) saturate(150%);
+  backdrop-filter: blur(10px) saturate(150%);
+}
+
+/* Ação principal: a "pílula" mais clara, como o item ativo de um menu */
+.btn-contrast {
+  --bs-btn-bg: var(--glass-bg-active);
+  --bs-btn-border-color: var(--glass-border-strong);
+  --bs-btn-hover-bg: var(--glass-bg-active);
+  font-weight: 600;
+}
+
+.btn-primary {
+  --bs-btn-bg: rgba(13, 110, 253, 0.55);
+  --bs-btn-border-color: rgba(255, 255, 255, 0.25);
+  --bs-btn-hover-bg: rgba(13, 110, 253, 0.72);
+  --bs-btn-hover-border-color: rgba(255, 255, 255, 0.4);
+  --bs-btn-active-bg: rgba(13, 110, 253, 0.8);
+  --bs-btn-disabled-bg: rgba(13, 110, 253, 0.35);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  -webkit-backdrop-filter: blur(10px) saturate(150%);
+  backdrop-filter: blur(10px) saturate(150%);
+}
+
+/* No claro, o azul translúcido fica desbotado sobre o branco */
+[data-bs-theme="light"] .btn-primary {
+  --bs-btn-bg: rgba(13, 110, 253, 0.88);
+  --bs-btn-hover-bg: rgba(13, 110, 253, 1);
+}
+
+/* --- Badges --------------------------------------------------------------- */
+
+.tech-badge {
+  background-color: var(--glass-bg-hover) !important;
+  color: var(--bs-emphasis-color) !important;
+  border: 1px solid var(--glass-border);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+.badge-contrast {
+  background-color: var(--glass-bg-active) !important;
+  border-color: var(--glass-border-strong);
+}
+
+/* --- Tabelas (painel admin) ----------------------------------------------- */
+
+.table {
+  --bs-table-bg: transparent;
+  --bs-table-color: var(--bs-body-color);
+  --bs-table-border-color: var(--glass-border);
+  --bs-table-striped-bg: var(--glass-bg);
+  --bs-table-hover-bg: var(--glass-bg-hover);
+  --bs-table-hover-color: var(--bs-emphasis-color);
+  margin-bottom: 0;
+}
+
+.table > :not(caption) > * > * {
+  padding: 0.85rem 1rem;
+  vertical-align: middle;
+}
+
+.table > thead > tr > th {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--bs-secondary-color);
+  border-bottom-color: var(--glass-border-strong);
+}
+
+.table > tbody > tr > * {
+  transition: background-color 0.15s ease-in-out;
+}
+
+.table > tbody > tr:hover > * {
+  background-color: var(--glass-bg-hover);
+}
+
+.table > tbody > tr:last-child > * {
+  border-bottom: 0;
+}
+
+/* Botões de ação: vidro, com a cor só no texto/ícone */
+.table .btn-sm,
+.accordion .btn-sm {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 34px;
+  min-height: 32px;
+}
+
+.table .btn-sm i,
+.accordion .btn-sm i {
+  font-size: 1rem;
+}
+
+.table .btn-outline-primary,
+.table .btn-outline-danger,
+.table .btn-outline-success,
+.accordion .btn-outline-primary,
+.accordion .btn-outline-danger,
+.accordion .btn-outline-success {
+  --bs-btn-bg: var(--glass-bg);
+  --bs-btn-border-color: var(--glass-border);
+  --bs-btn-hover-bg: var(--glass-bg-hover);
+  --bs-btn-hover-border-color: var(--glass-border-strong);
+  --bs-btn-active-bg: var(--glass-bg-active);
+  --bs-btn-active-border-color: var(--glass-border-strong);
+  box-shadow: inset 0 1px 0 var(--glass-highlight);
+  -webkit-backdrop-filter: blur(10px) saturate(150%);
+  backdrop-filter: blur(10px) saturate(150%);
+}
+
+.table .btn-outline-primary,
+.accordion .btn-outline-primary {
+  --bs-btn-color: var(--bs-primary-text-emphasis);
+  --bs-btn-hover-color: var(--bs-primary-text-emphasis);
+  --bs-btn-active-color: var(--bs-primary-text-emphasis);
+}
+
+.table .btn-outline-danger,
+.accordion .btn-outline-danger {
+  --bs-btn-color: var(--bs-danger-text-emphasis);
+  --bs-btn-hover-color: var(--bs-danger-text-emphasis);
+  --bs-btn-active-color: var(--bs-danger-text-emphasis);
+}
+
+.table .btn-outline-success,
+.accordion .btn-outline-success {
+  --bs-btn-color: var(--bs-success-text-emphasis);
+  --bs-btn-hover-color: var(--bs-success-text-emphasis);
+  --bs-btn-active-color: var(--bs-success-text-emphasis);
+}
+
+/* Status: badge suave em vez de cor sólida */
+.table .badge.bg-success,
+.accordion .badge.bg-success {
+  background-color: rgba(var(--bs-success-rgb), 0.18) !important;
+  color: var(--bs-success-text-emphasis);
+  border: 1px solid rgba(var(--bs-success-rgb), 0.35);
+}
+
+.table .badge.bg-secondary,
+.accordion .badge.bg-secondary {
+  background-color: var(--glass-bg-hover) !important;
+  color: var(--bs-secondary-color);
+  border: 1px solid var(--glass-border);
+}
+
+/* Listas em sanfona (versão mobile das tabelas) */
+.accordion {
+  --bs-accordion-bg: var(--glass-bg);
+  --bs-accordion-color: var(--bs-body-color);
+  --bs-accordion-border-color: var(--glass-border);
+  --bs-accordion-active-bg: var(--glass-bg-hover);
+  --bs-accordion-active-color: var(--bs-emphasis-color);
+  --bs-accordion-btn-focus-box-shadow: 0 0 0 0.2rem var(--glass-highlight);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(150%);
+  backdrop-filter: blur(var(--glass-blur)) saturate(150%);
+}
+
+/* --- Seletor de tema ------------------------------------------------------ */
+
+.theme-toggle {
+  color: var(--bs-secondary-color);
+}
+
+.theme-toggle:hover {
+  color: var(--bs-emphasis-color);
+}
