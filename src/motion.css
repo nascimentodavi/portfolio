@@ -1,0 +1,41 @@
+/* ==========================================================================
+   Animações de entrada — compartilhado entre o portfólio e o blog.
+   Mantenha os dois arquivos iguais:
+     nascimentodavi.github.io/src/motion.css
+     dbb/dbb_front/src/motion.css
+   Usado pelo componente Reveal (adiciona .is-visible ao entrar na tela).
+   ========================================================================== */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+.reveal-zoom {
+  transform: scale(0.88);
+}
+
+.reveal-down {
+  transform: translateY(-16px);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+  /* Libera a camada: com will-change ativo, o backdrop-filter (vidro) dos
+     filhos deixaria de desfocar o fundo da página */
+  will-change: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
